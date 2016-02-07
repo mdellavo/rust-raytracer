@@ -1,3 +1,6 @@
+#![feature(op_assign_traits)]
+#![feature(augmented_assignments)]
+
 use std::env;
 
 use std::error::Error;
@@ -8,36 +11,16 @@ use std::path::Path;
 extern crate rustc_serialize;
 use rustc_serialize::json;
 
+mod scene;
 mod vect;
-use vect::Vec3;
+
+use scene::Scene;
 
 struct Color {
     r: f64,
     g: f64,
     b: f64,
 }
-
-#[derive(RustcDecodable, RustcEncodable)]
-struct Light {
-     position: Vec3,
-}
-
-// struct Surface {
-// }
-
-#[derive(RustcDecodable, RustcEncodable)]
-struct Object {
-     position: Vec3
-}
-
-#[derive(RustcDecodable, RustcEncodable)]
-struct Scene {
-     objects: Vec<Object>,
-     lights: Vec<Light>
-}
-
-// struct Ray {
-// }
 
 fn load_scene(s: &String) -> Scene {
     let path = Path::new(s);
